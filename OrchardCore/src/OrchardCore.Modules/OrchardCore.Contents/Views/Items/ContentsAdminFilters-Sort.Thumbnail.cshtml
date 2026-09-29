@@ -1,0 +1,17 @@
+@model ShapeViewModel<ContentOptionsViewModel>
+@{
+    var term = Model.Value.FilterResult.FirstOrDefault(x => x.TermName == "sort");
+}
+
+<div class="ocat-wrapper">
+    <h4 class="card-title ocat-label">@T["Sort"]</h4>
+    <div class="ocat-end">
+        <pre>@(term?.ToString() ?? "sort:...")</pre>
+    </div>
+</div>
+<p>@T["Orders by a content item value."]</p>
+<div class="d-block text-end">
+    <span>
+        <i class="fa-solid fa-sm fa-minus text-primary" aria-hidden="true"></i>
+    </span>
+</div>

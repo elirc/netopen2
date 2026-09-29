@@ -1,0 +1,59 @@
+<script asp-name="media" at="Foot"></script>
+<style asp-name="media" at="Head"></style>
+
+<script at="Foot" asp-name="MediaFieldAppInitializer" depends-on="media">
+    initializeMediaApplication(true, '@Url.Action("MediaApplication", "Admin", new { area = "OrchardCore.Media" })', '@Context.Request.PathBase.ToString()');
+</script>
+
+<script at="Foot">
+    @* mediaApp is absolutely positioned. When a warning is shown we need to move it down to avoid overlapping. *@
+    function onDocumentReady(callback) {
+        if (document.readyState !== 'loading') {
+            callback();
+        } else {
+            document.addEventListener('DOMContentLoaded', callback);
+        }
+    }
+
+    onDocumentReady(function () {
+        var messages = document.querySelectorAll('.message');
+        if (!messages.length) { return; };
+        var mediaAppInitialTop = 0;
+        var mediaAppLoaded = false;
+
+        var repositionMediaApp = function () {
+
+            var messagesHeight = 0;
+            messages.forEach(function (message) {
+                var style = window.getComputedStyle(message);
+                messagesHeight += message.offsetHeight + (parseFloat(style.marginTop) || 0) + (parseFloat(style.marginBottom) || 0);
+            });
+
+            var newTop = mediaAppInitialTop + messagesHeight;
+            var mediaApp = document.getElementById('mediaApp');
+
+            if (mediaApp) {
+                mediaApp.style.top = newTop + 'px';
+            }
+        }
+
+        window.addEventListener('resize', function () {
+            if (mediaAppLoaded) {
+                repositionMediaApp();
+            }
+        });
+
+        // before moving we need to wait until the vuejs mediaapp is loaded.
+        var checkMediaAppIsLoaded = setInterval(function () {
+            var mediaApp = document.getElementById('mediaApp');
+            if (mediaApp) {
+                mediaAppInitialTop = mediaApp.getBoundingClientRect().top + window.scrollY;
+                clearInterval(checkMediaAppIsLoaded);
+                mediaAppLoaded = true;
+                repositionMediaApp();
+            }
+        }, 100);
+    });
+</script>
+
+<h1 style="display:none">@RenderTitleSegments(T["Assets"])</h1>

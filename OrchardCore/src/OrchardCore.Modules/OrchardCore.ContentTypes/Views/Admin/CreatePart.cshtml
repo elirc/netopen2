@@ -1,0 +1,21 @@
+@model CreatePartViewModel
+
+<zone Name="Title"><h1>@RenderTitleSegments(T["New Content Part"])</h1></zone>
+
+<form asp-action="CreatePart">
+    @Html.ValidationSummary()
+
+    <div class="ocat-limited-wrapper">
+        <label asp-for="Name" class="ocat-label">@T["Name"]</label>
+        <div class="ocat-limited">
+            <input asp-for="Name" class="form-control" autofocus="autofocus" />
+            <span class="hint">@T["Use no spaces or special characters. For example, \"MyCustomPart\""]</span>
+        </div>
+    </div>
+
+    <div class="ocat-wrapper">
+        <div class="ocat-end-offset">
+            <button class="btn btn-primary create" type="submit">@T["Create"]</button>
+        </div>
+    </div>
+</form>

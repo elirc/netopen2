@@ -1,0 +1,18 @@
+@model OrchardCore.Users.ViewModels.ChangeEmailViewModel
+
+@{
+    ViewLayout = "Layout__Login";
+}
+
+<h2>@T["Change Email"]</h2>
+<form asp-controller="ChangeEmail" asp-action="Index" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal no-multisubmit">
+    <div asp-validation-summary="All"></div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">@T["Email"]</label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">@T["Submit"]</button>
+    </div>
+</form>

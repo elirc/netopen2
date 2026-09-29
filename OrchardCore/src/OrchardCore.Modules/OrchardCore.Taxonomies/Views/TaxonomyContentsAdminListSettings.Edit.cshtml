@@ -1,0 +1,18 @@
+@model TaxonomyContentsAdminListSettingsViewModel
+
+<div class="ocat-wrapper" asp-validation-class-for="TaxonomyEntries">
+    <label asp-for="TaxonomyEntries" class="ocat-label">@T["Taxonomies"]</label>
+    <div class="ocat-end">
+        <span class="hint dashed">@T["The taxonomies to filters in the contents list."]</span>
+
+        @for (int i = 0; i < Model.TaxonomyEntries.Length; i++)
+        {
+            <input type="hidden" name="@Html.NameFor(m => m.TaxonomyEntries[i].ContentItemId)"
+                   value="@Model.TaxonomyEntries[i].ContentItemId" />
+            <div class="form-check">
+                <input asp-for="TaxonomyEntries[i].IsChecked" class="form-check-input" type="checkbox" />
+                <label asp-for="TaxonomyEntries[i].IsChecked" class="form-check-label">@Model.TaxonomyEntries[i].DisplayText</label>
+            </div>
+        }
+    </div>
+</div>

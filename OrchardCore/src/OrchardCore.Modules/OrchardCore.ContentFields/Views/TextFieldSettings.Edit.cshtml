@@ -1,0 +1,94 @@
+@using OrchardCore.ContentFields.Settings.Models
+@model TextFieldSettingsViewModel
+
+@* Provide code completion in the pattern editor *@
+<style asp-name="codemirror"></style>
+<script asp-name="codemirror" at="Foot"></script>
+<script asp-name="codemirror-mode-javascript" at="Foot"></script>
+<script asp-name="codemirror-addon-display-autorefresh" at="Foot"></script>
+<script asp-name="codemirror-addon-mode-simple" at="Foot"></script>
+<script asp-name="codemirror-addon-mode-multiplex" at="Foot"></script>
+<script asp-name="codemirror-mode-xml" at="Foot"></script>
+
+<script asp-src="~/OrchardCore.Liquid/codemirror/liquid.js" at="Foot"></script>
+
+<div class="ocat-wrapper">
+    <div class="ocat-end-offset">
+        <div class="form-check">
+            <input asp-for="Required" type="checkbox" class="form-check-input" />
+            <label class="form-check-label" asp-for="Required">@T["Required"]</label>
+            <span class="hint dashed">@T["Whether a value is required."]</span>
+        </div>
+    </div>
+</div>
+
+<div class="ocat-wrapper">
+    <label asp-for="Hint" class="ocat-label">@T["Hint"]</label>
+    <div class="ocat-end">
+        <textarea asp-for="Hint" rows="2" class="form-control"></textarea>
+        <span class="hint">@T["The hint text to display for this field on the editor."]</span>
+    </div>
+</div>
+
+<div class="ocat-wrapper">
+    <label asp-for="Placeholder" class="ocat-label">@T["Placeholder"]</label>
+    <div class="ocat-end">
+        <input asp-for="Placeholder" class="form-control" type="text" />
+        <span class="hint">@T["The placeholder text to display for this field on the editor."]</span>
+    </div>
+</div>
+
+<div class="ocat-wrapper">
+    <label asp-for="DefaultValue" class="ocat-label">@T["Default value"]</label>
+    <div class="ocat-end">
+        <input asp-for="DefaultValue" class="form-control" type="text" />
+        <span class="hint">@T["The default value. (optional)"]</span>
+    </div>
+</div>
+
+<div class="ocat-limited-wrapper">
+    <label asp-for="Type" class="ocat-label">@T["Type"]</label>
+    <div class="ocat-limited">
+        <select asp-for="Type" class="form-select" asp-items="Model.Types"></select>
+    </div>
+</div>
+
+<div class="ocat-limited-wrapper" id="patternEditor">
+    <label asp-for="Pattern" class="ocat-label">@T["Pattern"]</label>
+    <div class="ocat-limited">
+        <textarea asp-for="Pattern" rows="5" class="form-control"></textarea>
+        <span class="hint">@T["The pattern used to generate the value for this field. With Liquid support."]</span>
+    </div>
+</div>
+
+<script at="Foot">
+    document.addEventListener('DOMContentLoaded', function () {
+        editor = CodeMirror.fromTextArea(document.getElementById('@Html.IdFor(x => x.Pattern)'), {
+            autoRefresh: true,
+            lineNumbers: true,
+            styleActiveLine: true,
+            matchBrackets: true,
+            mode: { name: "liquid" },
+        });
+
+        setPatternVisibility();
+
+        document.getElementById('@Html.IdFor(x => x.Type)').addEventListener('change', function () {
+            setPatternVisibility();
+        });
+    });
+
+    function setPatternVisibility() {
+        var selectedValue = document.getElementById('@Html.IdFor(x => x.Type)').value;
+        var patternEditor = document.getElementById('patternEditor');
+        switch (selectedValue) {
+            case '@nameof(FieldBehaviorType.GeneratedDisabled)':
+            case '@nameof(FieldBehaviorType.GeneratedHidden)':
+                patternEditor.classList.remove('d-none');
+                break;
+            default:
+                patternEditor.classList.add('d-none');
+                break;
+        }
+    }
+</script>

@@ -56,7 +56,7 @@ flowchart TD
 
 | Concern | Who owns it | Anchor |
 | --- | --- | --- |
-| Host bootstrap | `OrchardCore.Cms.Web` | [`Program.cs:1-23`](../../../src/OrchardCore.Cms.Web/Program.cs) |
+| Host bootstrap | `OrchardCore.Cms.Web` | [`Program.cs:1-22`](../../../src/OrchardCore.Cms.Web/Program.cs) |
 | Tenant lifecycle (create/reload/release) | `ShellHost` in kernel | [`ShellHost.cs:16-30`](../../../src/OrchardCore/OrchardCore/Shell/ShellHost.cs) |
 | Tenant config storage | `ShellSettings` (`App_Data/tenants.json` + per-site `appsettings.json`) | [`ShellSettings.cs:9-13`](../../../src/OrchardCore/OrchardCore.Abstractions/Shell/ShellSettings.cs) |
 | Content domain logic | `OrchardCore.ContentManagement` (framework lib, not the module) | [`DefaultContentManager.cs:19`](../../../src/OrchardCore/OrchardCore.ContentManagement/DefaultContentManager.cs) |

@@ -14,7 +14,7 @@ Modules depend on `*.Abstractions`/`*.Core` libraries, *not* on other modules' i
 ## Frontend asset pipeline
 
 From [`package.json`](../../../package.json) (__verified__ read):
-- Yarn 4 workspaces: `.scripts/assets-manager`, `src/Frontend/`, plus **every module/theme `Assets/` folder** is its own workspace.
+- Yarn 4 workspaces: `.scripts/assets-manager`, `.scripts/bloom`, `src/Frontend/` (listed in `package.json` but absent from this snapshot), plus **every module/theme `Assets/` folder** is its own workspace.
 - `yarn build` runs the custom `@orchardcore/assets-manager` which compiles each module's `Assets.json`-described sources into that module's `wwwroot/`.
 - `yarn lint` = ESLint 9 flat config ([`eslint.config.mjs`](../../../eslint.config.mjs)); `yarn check` = `vue-tsc` (some admin UIs are Vue).
 

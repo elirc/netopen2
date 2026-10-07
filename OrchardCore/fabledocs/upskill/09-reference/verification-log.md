@@ -52,6 +52,14 @@ Running log of what was actually inspected while building this curriculum. Date:
 - Line numbers for files listed as partial reads are only cited within the ranges actually read.
 - The ~95 modules not listed above (Workflows, Media, Lucene/Elasticsearch, Layers, Localization, etc.) were surveyed by directory listing only; claims about them in these docs are structural (existence, naming) not behavioral.
 
+## 2026-10-06 re-check
+
+Static re-check against `elirc/netopen2` (single snapshot commit `88abe97`; the `29649872e` history is not included). Nothing was built or run.
+
+- Risk-register anchors R1–R9 still point at the described code. R1: `CreateEndpoint.cs` checks only `EditContent` (L97) and publishes when `!draft` (L124–127), while `AdminController.cs:876` requires `PublishContent`. R2: `IsAbsolutePathUniqueAsync` is at `AutoroutePartHandler.cs:465`, and `OrchardCore.Autoroute/Migrations.cs` creates `AutoroutePartIndex` with no unique index. R3: both catch blocks (`ModularBackgroundService.cs:222-228`, `ShellScope.cs:497-504`) log and call `HandleExceptionAsync`, with no retry.
+- The counts above still hold: 97 entries under `OrchardCore.Modules`, 104 under `src/OrchardCore`, 9 test projects, SDK `10.0.200`.
+- `Program.cs` has 22 lines; three `:1-23` anchors were corrected. `package.json` lists a `src/Frontend/` workspace that is not in this snapshot.
+
 ## Method note
 
 Anchors were written immediately after reading each file in this working copy, not from memory of upstream OrchardCore. If the repo is updated, anchors may drift; prefer searching for the quoted symbol names.

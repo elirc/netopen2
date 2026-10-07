@@ -41,7 +41,7 @@ Anchors are `path:line` relative to the repo root and were taken from live reads
 **Evidence.**
 - Feature/dependency declaration: `src/OrchardCore.Modules/OrchardCore.Contents/Manifest.cs` (six features in one assembly, each with `Dependencies`).
 - The abstractions-only coupling stated in the code itself: `src/OrchardCore/OrchardCore.Contents.Core/CommonPermissions.cs:5-8` — permissions live in `.Core` "so they can be used in other modules without having to reference OrchardCore.Contents by itself."
-- Host is nothing but composition: `src/OrchardCore.Cms.Web/Program.cs:1-23` (`AddOrchardCms().AddSetupFeatures(...)`, `app.UseOrchardCore()`).
+- Host is nothing but composition: `src/OrchardCore.Cms.Web/Program.cs:1-22` (`AddOrchardCms().AddSetupFeatures(...)`, `app.UseOrchardCore()`).
 - Central package management removes version drift across ~200 projects: `Directory.Packages.props` + cascading `Directory.Build.props`.
 
 **Alternatives considered.** A plugin DLL model with reflection-only contracts (looser, less type-safe); microservices per capability (operationally heavy for a CMS); a single project with feature flags as `if` statements (disabled code still loaded and coupled).

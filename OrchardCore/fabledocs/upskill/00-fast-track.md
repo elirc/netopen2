@@ -13,7 +13,7 @@ dotnet run -f net10.0
 # → http://localhost:5000
 ```
 
-The entire host is ~20 lines: [`src/OrchardCore.Cms.Web/Program.cs:1-23`](../../src/OrchardCore.Cms.Web/Program.cs) — `AddOrchardCms()` plus `app.UseOrchardCore()`. Everything else is modules. On first launch you get the **setup screen**: pick the "Blog" recipe, SQLite, create the admin user. That setup run is itself a flow worth understanding later (a *recipe* executes JSON steps inside a shell scope — [01-codebase-cartography/05-key-flows.md](01-codebase-cartography/05-key-flows.md), Flow 7).
+The entire host is ~20 lines: [`src/OrchardCore.Cms.Web/Program.cs:1-22`](../../src/OrchardCore.Cms.Web/Program.cs) — `AddOrchardCms()` plus `app.UseOrchardCore()`. Everything else is modules. On first launch you get the **setup screen**: pick the "Blog" recipe, SQLite, create the admin user. That setup run is itself a flow worth understanding later (a *recipe* executes JSON steps inside a shell scope — [01-codebase-cartography/05-key-flows.md](01-codebase-cartography/05-key-flows.md), Flow 7).
 
 ```bash
 # Unit tests — __inferred__ from AGENTS.md:59-75
